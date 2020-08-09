@@ -29,7 +29,7 @@ def process_request(http_request):
    if(uri.find("favicon")!=-1):
       return "".encode()
    if(uri == "/"):
-      http_response = "HTTP/1 .1 200 OK\r\nContent-Type:text/html\r\n"
+      http_response = "HTTP/1.1 200 OK\r\nContent-Type:text/html\r\n"
       content = "<h1>Webserver Under construction</h1>"  
       http_response = http_response+"Content-Length:"+str(len(content))+"\r\n\r\n"
       http_response = http_response+content
