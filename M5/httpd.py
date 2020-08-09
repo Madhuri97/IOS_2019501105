@@ -1,6 +1,6 @@
 import socket                
 import os.path
-import os,sys,time, signal
+import os,sys,time, signal, multiprocessing
 from os import path
 
 enable_dir_listing = True
@@ -95,7 +95,7 @@ def directory_listing(dir_path,uri):
    resp = "<html><body>"
    
    str = tempuri.split("/")
-   str.pop();
+   str.pop()
    u = "/"
    if(len(str)==1 and str[0]==""):
      u = "/"
@@ -149,4 +149,11 @@ def execute(url):
         os._exit(0)
 	
 sock = bind_ip("",8888)
-start_server(sock)
+def handler():
+   while True:
+      start_server(sock) 
+
+for _ in range(8):
+   process = multiprocessing.Process(target=handler, args=())
+   process.start()
+
